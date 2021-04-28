@@ -24,12 +24,12 @@ public class AutorController {
     }
 
     @GetMapping
-    public List<Autor> visualizar(){
+    public List<Autor> visualizarTodos(){
         List<Autor> autores = autorRepository.findAll();
         return autores;
     }
     @PostMapping
-    public ResponseEntity<Autor> cadastrar(@RequestBody @Valid AutorForm autorForm,
+    public ResponseEntity<Autor> cadastrar(@RequestBody AutorForm autorForm,
                                            UriComponentsBuilder uriBuilder){
         Autor autor = new Autor();
         try{
@@ -39,8 +39,7 @@ public class AutorController {
         }
 
         autorRepository.save(autor);
-//        URI uri = uriBuilder.path("/autor/{id}").buildAndExpand(autor.getId()).toUri();
-//        return ResponseEntity.created(uri).body(autor);
-        return ResponseEntity.ok().build();
+        URI uri = uriBuilder.path("/autor/{id}").buildAndExpand(autor.getId()).toUri();
+        return ResponseEntity.created(uri).body(autor);
     }
 }

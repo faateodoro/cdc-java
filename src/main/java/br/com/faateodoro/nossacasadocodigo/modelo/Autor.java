@@ -16,21 +16,9 @@ public class Autor {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@NotNull(message = "O nome não pode ser nulo")
-    //@NotEmpty(message = "O nome não pode ser vazio")
-    //@Length(min = 1)
     private String nome;
-
-    //@NotNull(message = "O email não pode ser nulo")
-    //@NotEmpty(message = "O email não pode ser vazio")
-    //@Length(min = 1)
     private String email;
-
-    //@NotNull(message = "A descrição não pode ser nula")
-    //@NotEmpty(message = "A descrição não pode ser vazia")
-    //@Length(min = 1, max = 400)
     private String descricao;
-
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
     public Autor(){}
