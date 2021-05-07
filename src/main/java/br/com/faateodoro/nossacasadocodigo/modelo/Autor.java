@@ -12,20 +12,21 @@ public class Autor {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotBlank(message = "O nome é obrigatório")
+    @NotBlank(message = "{autor.nome.obrigatorio}")
     private String nome;
 
-    @Email(message = "O email é obrigatório e deve ter o formato válido")
-    @NotBlank(message = "O email não pode ser vazio")
+    @Email(message = "{autor.email.valido}")
+    @NotBlank(message = "{autor.email.valido}")
     private String email;
 
-    @Size(max = 400, message = "Adescrição nãopode conter mais que 400 caracteres")
-    @NotBlank(message = "A descrição não pode ser vazia")
+    @Size(max = 400, message = "{autor.descricao.maximo}")
+    @NotBlank(message = "{autor.descricao.obrigatorio}")
     private String descricao;
 
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
-    public Autor(){}
+    @Deprecated
+    private Autor(){}
 
     public Autor(String nome, String email, String descricao) {
         this.nome = nome;

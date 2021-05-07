@@ -23,17 +23,17 @@ public class AutorController {
 
     private final AutorRepository autorRepository;
 
-    @Autowired
     public AutorController(AutorRepository autorRepository){
         this.autorRepository = autorRepository;
     }
 
-    @GetMapping("/autor")
+    @GetMapping("/autores")
     public List<Autor> visualizar(){
         List<Autor> autores = autorRepository.findAll();
         return autores;
     }
-    @PostMapping("/autor")
+
+    @PostMapping("/autores")
     public ResponseEntity cadastrar(@RequestBody @Valid AutorRequest autorRequest,
            UriComponentsBuilder uriBuilder){
 
