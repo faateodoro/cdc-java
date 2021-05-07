@@ -3,11 +3,7 @@ package br.com.faateodoro.nossacasadocodigo.controller;
 import br.com.faateodoro.nossacasadocodigo.controller.dto.AutorRequest;
 import br.com.faateodoro.nossacasadocodigo.modelo.Autor;
 import br.com.faateodoro.nossacasadocodigo.repository.AutorRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +14,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@Validated
 public class AutorController {
 
     private final AutorRepository autorRepository;
@@ -34,7 +29,7 @@ public class AutorController {
     }
 
     @PostMapping("/autores")
-    public ResponseEntity cadastrar(@RequestBody @Valid AutorRequest autorRequest,
+    public ResponseEntity<Autor> cadastrar(@RequestBody @Valid AutorRequest autorRequest,
            UriComponentsBuilder uriBuilder){
 
         Autor autor = autorRequest.toAutor();
