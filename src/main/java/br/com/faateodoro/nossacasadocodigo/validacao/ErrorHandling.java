@@ -1,7 +1,10 @@
 package br.com.faateodoro.nossacasadocodigo.validacao;
 
+import br.com.faateodoro.nossacasadocodigo.validacao.exception.EmailJaExistenteException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +15,13 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ErrorHandling {
+    @ExceptionHandler(EmailJaExistenteException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseBody
+    ValidacaoErroResponse onEmailJaExistenteException(EmailJaExistenteException erro){
+        return new ValidacaoErroResponse("email", erro.getMessage());
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -25,7 +35,7 @@ public class ErrorHandling {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ResponseBody
     List<ValidacaoErroResponse> onMethodArgumentNotValidException(MethodArgumentNotValidException e){
         List<ValidacaoErroResponse> erros = new ArrayList<>() {};
