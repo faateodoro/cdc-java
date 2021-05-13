@@ -1,12 +1,13 @@
 package br.com.faateodoro.nossacasadocodigo.validacao;
 
-import br.com.faateodoro.nossacasadocodigo.validacao.exception.EmailJaExistenteException;
+import br.com.faateodoro.nossacasadocodigo.validacao.exception.ValidationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -15,11 +16,11 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ErrorHandling {
-    @ExceptionHandler(EmailJaExistenteException.class)
+    @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ResponseBody
-    ValidacaoErroResponse onEmailJaExistenteException(EmailJaExistenteException erro){
-        return new ValidacaoErroResponse("email", erro.getMessage());
+    ValidacaoErroResponse onValidationException(ValidationException erro){
+        return new ValidacaoErroResponse(erro.getCampo(), erro.getMessage());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

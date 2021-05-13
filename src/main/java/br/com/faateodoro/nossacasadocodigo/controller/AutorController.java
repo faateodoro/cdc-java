@@ -3,11 +3,8 @@ package br.com.faateodoro.nossacasadocodigo.controller;
 import br.com.faateodoro.nossacasadocodigo.controller.dto.AutorRequest;
 import br.com.faateodoro.nossacasadocodigo.modelo.Autor;
 import br.com.faateodoro.nossacasadocodigo.repository.AutorRepository;
-import br.com.faateodoro.nossacasadocodigo.validacao.exception.EmailJaExistenteException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import br.com.faateodoro.nossacasadocodigo.validacao.exception.ValidationException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +37,7 @@ public class AutorController {
 
         Optional<Autor> emailJaExiste = autorRepository.findByEmail(autorRequest.getEmail());
         if(emailJaExiste.isPresent())
-            throw new EmailJaExistenteException("Operação ilegal. Email já cadatrado no sistema!");
+            throw new ValidationException("Operação ilegal. Email já cadatrado no sistema!", "email");
 
         Autor autor = autorRequest.toAutor();
         autorRepository.save(autor);
