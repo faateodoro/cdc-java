@@ -1,9 +1,13 @@
 package br.com.faateodoro.nossacasadocodigo.validacao;
 
+import br.com.faateodoro.nossacasadocodigo.validacao.exception.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -12,6 +16,13 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ErrorHandling {
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseBody
+    ValidacaoErroResponse onValidationException(ValidationException erro){
+        return new ValidacaoErroResponse(erro.getCampo(), erro.getMessage());
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -25,7 +36,7 @@ public class ErrorHandling {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ResponseBody
     List<ValidacaoErroResponse> onMethodArgumentNotValidException(MethodArgumentNotValidException e){
         List<ValidacaoErroResponse> erros = new ArrayList<>() {};
