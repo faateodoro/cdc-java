@@ -2,12 +2,9 @@ package br.com.faateodoro.nossacasadocodigo.modelo;
 
 import org.springframework.util.Assert;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 public class Categoria {
@@ -17,6 +14,9 @@ public class Categoria {
 
     @NotBlank(message = "{categoria.nome.obrigatorio}")
     private String nome;
+
+    @OneToMany(mappedBy = "categoria")
+    private Set<Livro> livros;
 
     @Deprecated
     private Categoria(){}
