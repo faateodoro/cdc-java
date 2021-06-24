@@ -25,9 +25,6 @@ public class Autor {
 
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
-//    @OneToMany(mappedBy = "autor")
-//    private Set<Livro> livros;
-
     @Deprecated
     private Autor(){}
 
