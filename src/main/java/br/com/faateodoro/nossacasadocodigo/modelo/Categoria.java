@@ -15,8 +15,8 @@ public class Categoria {
     @NotBlank(message = "{categoria.nome.obrigatorio}")
     private String nome;
 
-    @OneToMany(mappedBy = "categoria")
-    private Set<Livro> livros;
+//    @OneToMany(mappedBy = "categoria")
+//    private Set<Livro> livros;
 
     @Deprecated
     private Categoria(){}

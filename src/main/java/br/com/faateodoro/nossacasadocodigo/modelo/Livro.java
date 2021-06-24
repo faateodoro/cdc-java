@@ -1,6 +1,5 @@
 package br.com.faateodoro.nossacasadocodigo.modelo;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -17,10 +16,11 @@ public class Livro {
     @NotBlank(message = "{livro.titulo.obrigatorio}")
     private String titulo;
 
-    @Length(max=500, message = "{livro.resumo.maximo}")
+    @Size(max=500, message = "{livro.resumo.maximo}")
     @NotBlank(message = "{livro.resumo.obrigatorio}")
     private String resumo;
 
+    @Column(columnDefinition = "TEXT")
     @NotBlank(message = "{livro.sumario.obrigatorio}")
     private String sumario;
 
@@ -38,12 +38,10 @@ public class Livro {
 
     @NotNull(message = "{livro.categoria.obrigatorio}")
     @ManyToOne
-    @JoinColumn(name="categoria_id", nullable = false)
     private Categoria categoria;
 
     @NotNull(message = "{livro.autor.obrigatorio}")
     @ManyToOne
-    @JoinColumn(name="autor_id", nullable = false)
     private Autor autor;
 
     @Deprecated
@@ -56,7 +54,7 @@ public class Livro {
         Assert.hasText(resumo, "O resumo é obrigatório");
         Assert.hasText(sumario, "O sumário é obrigatório");
         Assert.notNull(preco, "O preço é obrigatório");
-        Assert.isTrue(preco.compareTo(new BigDecimal("20")) >= 0,
+        Assert.isTrue(preco.compareTo(new BigDecimal("20.00")) >= 0,
                 "O preço deve ser ao menos R$20,00");
         Assert.isTrue(paginas >= 100, "O livro deve conter ao menos 100 páginas");
         Assert.hasText(isbn, "O ISBN é obrigatório");

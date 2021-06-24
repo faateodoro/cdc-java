@@ -42,7 +42,7 @@ public class LivroController {
         if(isbnJaExiste.isPresent())
             throw new ValidationException("Operação ilegal. O ISBN já existe", "isbn");
 
-        Livro livro = livroDto.ToLivro(categoriaRepository, autorRepository);
+        Livro livro = livroDto.toLivro(categoriaRepository, autorRepository);
         livroRepository.save(livro);
         return ResponseEntity.ok(livro);
     }

@@ -27,7 +27,7 @@ public class LivroDto {
     @NotBlank(message = "{livro.sumario.obrigatorio}")
     private String sumario;
 
-    @DecimalMin(value="20.0", message = "{livro.preco.minimo}")
+    @DecimalMin(value="20.00", message = "{livro.preco.minimo}")
     private BigDecimal preco;
 
     @Min(value=100, message = "{livro.paginas.minimo}")
@@ -58,7 +58,7 @@ public class LivroDto {
         this.emailAutor = emailAutor;
     }
 
-    public Livro ToLivro(CategoriaRepository categoriaRepository, AutorRepository autorRepository) {
+    public Livro toLivro(CategoriaRepository categoriaRepository, AutorRepository autorRepository) {
 
         Optional<Categoria> categoriaOptional = categoriaRepository.findByNome(this.nomeCategoria);
         Optional<Autor> autorOptional = autorRepository.findByEmail(this.emailAutor);
