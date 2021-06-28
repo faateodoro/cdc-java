@@ -4,7 +4,6 @@ import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
 
 @Entity
 public class Categoria {
@@ -14,9 +13,6 @@ public class Categoria {
 
     @NotBlank(message = "{categoria.nome.obrigatorio}")
     private String nome;
-
-//    @OneToMany(mappedBy = "categoria")
-//    private Set<Livro> livros;
 
     @Deprecated
     private Categoria(){}
